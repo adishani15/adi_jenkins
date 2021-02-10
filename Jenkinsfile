@@ -1,7 +1,7 @@
 #!/groovy
 @Library('cx-jenkins-pipeline-kit') _
 
-
+timestamps {
 pipeline {
     agent { node { label 'install02' } }
     parameters {
@@ -13,6 +13,7 @@ pipeline {
     options {
         skipDefaultCheckout true
         timeout(time: 1, unit: 'HOURS') 
+        timestamps()
     }
    //
     stages {
