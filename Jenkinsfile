@@ -27,7 +27,9 @@ pipeline {
     } 
     post { 
         always { 
+            script{
             kit.Delete_Virtual_Machine_Terraform("adi-test-${BUILD_NUMBER}")
+            }
             cleanWs()
         }
     }
