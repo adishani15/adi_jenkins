@@ -6,7 +6,7 @@ pipeline {
     agent { node { label 'install02' } }
     parameters {
        
-        choice(name: 'pool', choices: ['IAST-CI', 'IAST-Devlopers'], description: 'choose reource pool')
+        choice(name: 'pool', choices: ['IAST-Devlopers','IAST-CI'], description: 'choose reource pool')
 
        
     }
@@ -17,21 +17,17 @@ pipeline {
     }
    //
     stages {
-        stage('Build') {
+        stage('create IAST manager') {
             steps {
-
-                sh "ls -la"
-                 echo "hello"
-                 echo " resource pool is: ${pool}"
-
-                // script{
-                //     kit.Create_Vm_Terraform("adi-test3","SAST-IAST","4000","2","VMWARE","5 minutes","Auto","IAST-Developers","Lab","1000","1")
-                // }
+                script{
+                    kit.Create_Vm_Terraform("adi-test-${BUILD_NUMBER}","SAST-IAST","4000","2","VMWARE","5 minutes","Auto","IAST-Developers","Lab","1000","1")
+                }
             } 
         }   
     } 
     post { 
         always { 
+            kit.Delete_Virtual_Machine_Terraform("adi-test-${BUILD_NUMBER}")
             cleanWs()
         }
     }
