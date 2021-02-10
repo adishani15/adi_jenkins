@@ -14,7 +14,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                
+
+                sh "ls -la"
                  echo "hello"
                  echo " resource pool is: ${pool}"
 
